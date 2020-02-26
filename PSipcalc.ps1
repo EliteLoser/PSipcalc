@@ -16,10 +16,11 @@ param(
 ## Author: Joakim Svendsen
 
 # Original release 2015-07-13 (ish) v1.0 (or whatever...)
+# 2015-07-15: Added -Contains and fixed some comment bugs(!) plus commented a bit more and made minor tweaks. v1.1, I guess.
 # 2015-07-16: Standardized the TotalHosts and UsableHosts properties to always be of the type int64.
 # Formely TotalHosts was a string, except for network lengths of 30-32, when it was an int32. UsableHosts used to be int32.
-
-# 2015-07-15: Added -Contains and fixed some comment bugs(!) plus commented a bit more and made minor tweaks. v1.1, I guess.
+# 2020-02-26: Would change a lot stylistically now, but I don't consider it worth it currently. It's on GitHub at least.
+#             I should publish it as a script to the PowerShell gallery.
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
@@ -271,8 +272,6 @@ function Get-NetworkInformationFromProperCIDR
     {
         $o.Broadcast = Convert-BinaryToIP $BinaryBroadcastIP
     }
-    # I had to create this Get-IPRange function because a 32-digit binary number wouldn't fit in an int64...
-    ### no, I didn't... Get-IPRange2 in effect; significantly faster.
     if ($Enumerate)
     {
         $IPRange = @(Get-IPRange2 $o.BinaryNetworkAddress $o.BinaryNetworkAddress.SubString(0, $o.NetworkLength).PadRight(32, '1'))
